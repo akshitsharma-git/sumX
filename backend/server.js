@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/", home);
-app.use(express.static(path.join(_dirname, "/frontend/dist")));
+app.use(express.static(path.join(_dirname, "frontend", "dist")));
 app.use((req, res) => {
   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 });
