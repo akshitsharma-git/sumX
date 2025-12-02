@@ -1,23 +1,15 @@
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const jwt = require("jsonwebtoken");
-const express = require("express");
-const cookieParser = require("cookie-parser");
-const path = require("path");
+const cors = require("cors")
+const dotenv = require("dotenv")
+const express = require("express")
+const path = require("path")
 
-const _dirname = path.resolve();
+const _dirname = path.resolve()
 
-const home = require("./routes/home.route.js");
+const home = require("./routes/home.route.js")
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
-
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
+const app = express()
 
 app.use(
   cors({
@@ -27,14 +19,13 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 app.use("/", home);
-app.use(express.static(path.join(_dirname, "frontend", "dist")));
+app.use(express.static(path.join(_dirname, "frontend", "dist")))
 app.use((req, res) => {
-  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"))
 });
 
 

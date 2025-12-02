@@ -19,7 +19,7 @@ function Home() {
     try {
       setLoading(true);
 
-      const res = await fetch("/", {
+      const res = await fetch("http://localhost:1111/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
