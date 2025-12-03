@@ -48,7 +48,8 @@ function Home() {
             <img
               src="/assets/sumX_4.png"
               alt="SumX Logo"
-              style={{ marginLeft: "100px", height: "150px" }}
+              // style={{ marginLeft: "100px", height: "150px" }}
+              className="site-logo"
             />
           </a>
         </div>
@@ -57,14 +58,16 @@ function Home() {
             <img
               src="/assets/GithubLogo_1.png"
               alt="Github Logo"
-              style={{ height: "50px", marginRight: "20px" }}
+              // style={{ height: "50px", marginRight: "20px" }}
+              className="small-icon"
             />
           </a>
           <a href="https://x.com/akshitinpublic" target="_blank">
             <img
               src="/assets/X_Logo.jpg"
               alt="X Logo"
-              style={{ height: "50px", marginRight: "120px" }}
+              // style={{ height: "50px", marginRight: "120px" }}
+              className="small-icon"
             />
           </a>
         </div>
