@@ -1,5 +1,5 @@
 const axios = require("axios");
-const redis=require("../redis.js");
+const redis = require("../redis.js");
 
 const SCRAPINGDOG_API_BASE = "https://api.scrapingdog.com/x/post";
 
@@ -19,12 +19,16 @@ const handleHome = async (req, res) => {
       .json({ success: false, message: "Missing URL or API key." });
   }
 
-  const cacheKey=`sumX:${tweetId}`;
+  const cacheKey = `sumX:${tweetId}`;
 
-  const cached=await redis.get(cacheKey);
-  if(cached){
-    console.log("Cache hit for ",tweetId);
-    return res.json(JSON.parse(cached));
+  try {
+    const cached = await redis.get(cacheKey);
+    if (cached) {
+      console.log("Cache hit for", tweetId);
+      return res.json(JSON.parse(cached));
+    }
+  } catch (err) {
+    console.warn("Redis GET failed (continuing without cache):", err.message);
   }
 
   try {
@@ -72,16 +76,21 @@ const handleHome = async (req, res) => {
         .json({ success: false, message: "AI summarization failed." });
     }
 
-    const responseData={
-      success:true,
+    const responseData = {
+      success: true,
       tweetText,
       summary,
-      fromCache:false
+      fromCache: false,
+    };
+
+    try {
+      await redis.set(cacheKey, JSON.stringify(responseData), "EX", 600);
+    } catch (err) {
+      console.warn("Redis SET failed (ignored):", err.message);
     }
 
-    await redis.set(cacheKey,JSON.stringify(responseData),"EX",600);
-
     return res.json(responseData);
+
   } catch (err) {
     console.error("Error:", err.message);
 
