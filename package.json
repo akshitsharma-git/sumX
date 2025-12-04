@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-  "install:frontend": "cd frontend && npm install",
-  "build:frontend": "cd frontend && npm run build",
-  "start": "node backend/server.js",
-  "build": "npm run install:frontend && npm run build:frontend"
-},
+    "install:frontend": "cd frontend && npm install",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "node backend/server.js",
+    "build": "npm run install:frontend && npm run build:frontend"
+  },
   "dependencies": {
     "axios": "^1.13.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",
     "puppeteer": "^24.31.0",

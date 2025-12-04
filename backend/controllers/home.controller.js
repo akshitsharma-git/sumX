@@ -1,4 +1,5 @@
 const axios = require("axios");
+const redis=require("../redis.js");
 
 const SCRAPINGDOG_API_BASE = "https://api.scrapingdog.com/x/post";
 
@@ -16,6 +17,14 @@ const handleHome = async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Missing URL or API key." });
+  }
+
+  const cacheKey=`sumX:${tweetId}`;
+
+  const cached=await redis.get(cacheKey);
+  if(cached){
+    console.log("Cache hit for ",tweetId);
+    return res.json(JSON.parse(cached));
   }
 
   try {
@@ -46,7 +55,7 @@ const handleHome = async (req, res) => {
       });
     }
 
-    const prompt = `Summarize this social media post in a single paragraph. The summary must be direct, formal, and strictly concise. Start with "Here's the summary".\n\n${tweetText}`;
+    const prompt = `Summarize this social media post in a single paragraph. The summary must be direct, formal, and strictly concise. Start with "Here's the summary" Add a line space after here's the summary.\n\n${tweetText}`;
 
     const aiResponse = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
@@ -63,11 +72,16 @@ const handleHome = async (req, res) => {
         .json({ success: false, message: "AI summarization failed." });
     }
 
-    return res.json({
-      success: true,
+    const responseData={
+      success:true,
       tweetText,
       summary,
-    });
+      fromCache:false
+    }
+
+    await redis.set(cacheKey,JSON.stringify(responseData),"EX",600);
+
+    return res.json(responseData);
   } catch (err) {
     console.error("Error:", err.message);
 
