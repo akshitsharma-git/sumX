@@ -1,6 +1,6 @@
-
 const cors = require("cors");
 const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const path = require("path");
 
@@ -8,10 +8,7 @@ const _dirname = path.resolve();
 
 const home = require("./routes/home.route.js");
 
-dotenv.config();
-
 const app = express();
-
 
 app.use(
   cors({
