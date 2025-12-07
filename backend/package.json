@@ -2,6 +2,7 @@
   "name": "sumx-backend",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "commonjs",
   "scripts": {
     "install:frontend": "cd frontend && npm install",
     "build:frontend": "cd frontend && npm run build",
@@ -14,10 +15,12 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "groq-sdk": "^0.37.0",
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",
     "puppeteer": "^24.31.0",
+    "rate-limiter-flexible": "^9.0.0",
     "twitter-api-v2": "^1.28.0"
   },
   "devDependencies": {
