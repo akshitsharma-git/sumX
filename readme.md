@@ -145,6 +145,17 @@ REDIS_URL=your_redis_url
 ```
 ---
 
+# 🧠 **Philosophy**
+
+> Speed matters. Clarity matters more.
+
+SumX is built to cut through information overload by delivering **clear, concise insights** from noisy X (Twitter) content—without compromising performance or simplicity.
+
+The focus is on **minimal UI**, **fast inference**, and **production-ready architecture** that scales.
+
+---
+
+
 # 📜 License
 
 This project is licensed under the MIT License.
